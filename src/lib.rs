@@ -20,6 +20,8 @@ mod nauty;
 // [[file:../nauty.note::*pub][pub:1]]
 #[cfg(feature = "adhoc")]
 pub use bindings::dwim;
+
+pub use crate::nauty::*;
 // pub:1 ends here
 
 // [[file:../nauty.note::*test][test:1]]

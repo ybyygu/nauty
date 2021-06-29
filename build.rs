@@ -24,7 +24,7 @@ fn main() {
         .file("lib/gtnauty.c")
         .file("lib/naugroup.c")
         .file("lib/nautycliquer.c")
-        // local wrapper for exposing only interesting APIs
+        // local wrapper for exposing only API that I need
         .file("wrapper.c")
         .compile("libnauty.a");
 
