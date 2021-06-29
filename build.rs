@@ -2,12 +2,10 @@
 use bindgen;
 use cc;
 
-use std::collections::HashSet;
 use std::env;
 use std::path::PathBuf;
 
 fn main() {
-    println!("cargo:rustc-link-lib=m");
     cc::Build::new()
         .cpp(false)
         .include("lib")
@@ -26,10 +24,12 @@ fn main() {
         .file("lib/gtnauty.c")
         .file("lib/naugroup.c")
         .file("lib/nautycliquer.c")
+        // local wrapper for exposing only interesting APIs
+        .file("wrapper.c")
         .compile("libnauty.a");
 
     let bindings = bindgen::Builder::default()
-        .header("lib/nauty.h")
+        .header("wrapper.h")
         .rustfmt_bindings(true)
         .generate()
         .expect("Unable to generate bindings");
