@@ -13,5 +13,7 @@ cc = "1"
 bindgen = "0.58"
 
 [dev-dependencies]
-vecfx = {version="0.1"}
+      
+[features]
+adhoc = [] # for adhoc hacking
 # cargo:1 ends here
