@@ -59,7 +59,7 @@ where
     // such that vertices with the same colour are contiguous. The ends of the
     // colour-classes are indicated by zeros in ptn
 
-    // labels
+    // labels will be sorted by their colors
     let mut lab: Vec<_> = (0..nnodes).map(|i| i as i32).collect();
     lab.sort_by_key(|&i| colors[i as usize]);
 
@@ -99,6 +99,39 @@ where
 // [[file:../nauty.note::*test][test:1]]
 #[test]
 fn test_nauty_labels() {
-    
+    // H2O molecule: H-O-H
+    let nodes = vec!["H1", "O2", "H3"];
+    let edges = vec![("H1", "O2"), ("H3", "O2")];
+    let colors = vec!["H", "O", "H"];
+    let x = get_canonical_labels(&nodes, &edges, &colors).unwrap();
+    // let expected = vec!["H1", "H3", "O2"];
+    assert_eq!(x.len(), 3);
+    assert_eq!(x[2], "O2");
+
+    // HCN molecule: H-C-N
+    let nodes = vec!["N1", "C2", "H3"];
+    let edges = vec![("H3", "C2"), ("C2", "N1")];
+    let colors = vec![7, 6, 1];
+    let x = get_canonical_labels(&nodes, &edges, &colors).unwrap();
+    assert_eq!(x[0], "H3");
+    assert_eq!(x[1], "C2");
+    assert_eq!(x[2], "N1");
+
+    // Molecule CH3Cl, and atoms sorted in different order
+    let nodes = vec!["Cl1", "C2", "H3", "H4", "H5"];
+    let edges = vec![("C2", "H3"), ("C2", "H4"), ("C2", "H5"), ("C2", "Cl1")];
+    // use element numbers as colors
+    let colors = vec![17, 6, 1, 1, 1];
+    let x = get_canonical_labels(&nodes, &edges, &colors).unwrap();
+    assert_eq!(x[3], "C2");
+    assert_eq!(x[4], "Cl1");
+
+    let nodes = vec!["C1", "H2", "H3", "H4", "Cl5"];
+    let edges = vec![("C1", "H2"), ("C1", "H3"), ("C1", "H4"), ("C1", "Cl5")];
+    // use element numbers as colors
+    let colors = vec![6, 1, 1, 1, 17];
+    let x = get_canonical_labels(&nodes, &edges, &colors).unwrap();
+    assert_eq!(x[3], "C1");
+    assert_eq!(x[4], "Cl5");
 }
 // test:1 ends here

@@ -6,7 +6,7 @@ int dwim(int n, int nedges, int *edges_i, int *edges_j, int *lab, int *ptn) {
   /* Select option for canonical labelling */
   static DEFAULTOPTIONS_GRAPH(options);
   options.getcanon = TRUE;
-  /* options.defaultptn = FALSE; */
+  options.defaultptn = FALSE;
 
   if (n > 0) {
     /* allocate memory */
