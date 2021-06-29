@@ -1,0 +1,17 @@
+# [[file:nauty.note::*cargo][cargo:1]]
+[package]
+name = "nauty"
+edition = "2018"
+version = "0.0.1"
+authors = ["Wenping Guo <ybyygu@gmail.com>"]
+
+[dependencies]
+anyhow = "1"
+
+[build-dependencies]
+cc = "1"
+bindgen = "0.58"
+
+[dev-dependencies]
+vecfx = {version="0.1"}
+# cargo:1 ends here
